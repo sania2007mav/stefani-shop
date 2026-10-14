@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Stefani — lookbook</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/data.js"></script>
+</head>
+<body>
+<section class="hero">
+  <img src="img/p7.jpg" alt="Stefani lookbook">
+  <div>
+    <span class="tag">Lookbook 2026</span>
+    <h1>Stefani</h1>
+    <p>Женская одежда крупным планом. Каталог, доставка по Казахстану, примерка при получении.</p>
+    <a class="btn" href="catalog.html">Смотреть образы</a>
+  </div>
+</section>
+
+<section class="sec">
+  <h2>Разделы</h2>
+  <p class="lead">Выберите категорию и соберите образ.</p>
+  <div class="cats">
+    <a class="cat" href="catalog.html?cat=Платья"><img src="img/p6.jpg" alt=""><span>Платья</span></a>
+    <a class="cat" href="catalog.html?cat=Блузы"><img src="img/p10.jpg" alt=""><span>Блузы</span></a>
+    <a class="cat" href="catalog.html?cat=Брюки"><img src="img/p9.jpg" alt=""><span>Брюки</span></a>
+    <a class="cat" href="catalog.html?cat=Верхняя одежда"><img src="img/p3.jpg" alt=""><span>Верхняя</span></a>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:0">
+  <h2>Новинки</h2>
+  <p class="lead">Свежие позиции сезона.</p>
+  <div class="grid" id="new"></div>
+  <p class="note">* Цены указаны для примера</p>
+  <p style="margin-top:28px"><a class="btn ghost" href="catalog.html">Весь каталог</a></p>
+</section>
+
+<section class="promo">
+  <div>
+    <h2>−20% first order</h2>
+    <p>Промокод STEFANI20 · бесплатная доставка от 30 000 ₸*</p>
+  </div>
+  <a class="btn" href="catalog.html">В каталог</a>
+</section>
+
+<section class="sec insta">
+  <div>
+    <h2>Связь</h2>
+    <p><b>@stefani.kz</b>*</p>
+    <p>Казахстан, адрес шоурума*</p>
+    <p>WhatsApp / Direct</p>
+    <p>Ежедневно 10:00–20:00</p>
+    <p style="margin-top:22px"><a class="btn ghost" href="about.html">О бренде</a></p>
+  </div>
+  <div class="ph">
+    <img src="img/p2.jpg" alt=""><img src="img/p4.jpg" alt="">
+    <img src="img/p8.jpg" alt=""><img src="img/p11.jpg" alt="">
+  </div>
+</section>
+<script>
+loadProducts().then(() => {
+  const list = PRODUCTS.filter(p => p.isNew).sort((a,b)=>b.id-a.id).slice(0,6);
+  document.getElementById('new').innerHTML = list.map(card).join('');
+});
+</script>
+</body>
+</html>

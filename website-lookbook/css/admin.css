@@ -1,0 +1,17 @@
+/* Стили админ-панели Stefani */
+.mob{display:none;opacity:.7}.hidden{display:none!important}.adm-title{font-size:18px;color:#b5656b}#who{font-size:14px;display:flex;gap:10px;align-items:center}
+.panel{background:#fff;border-radius:28px;padding:30px;display:flex;flex-direction:column;gap:14px}.login{max-width:420px;margin:0 auto}
+.panel label{display:flex;flex-direction:column;gap:6px;font-weight:700;font-size:14px}.panel label.inline{flex-direction:row;align-items:center;gap:8px;margin-top:22px}
+.panel input,.panel select,.panel textarea{font:400 15px 'Nunito';padding:11px 14px;border:2px solid #f0d0cc;border-radius:14px;background:#fffaf7;color:#5a4040}
+.err{color:#c0392b;font-weight:700;min-height:20px}.lbl{font-weight:700;font-size:14px}
+.bar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}.bar small{font-size:20px;opacity:.6}
+.tbl{width:100%;border-collapse:separate;border-spacing:0 8px}.tbl th{text-align:left;font-size:13px;opacity:.7;padding:4px 10px}
+.tbl td{background:#fff;padding:8px 10px;vertical-align:middle}.tbl td:first-child{border-radius:16px 0 0 16px}.tbl td:last-child{border-radius:0 16px 16px 0;white-space:nowrap}
+.tbl img{width:54px;height:68px;object-fit:cover;border-radius:10px}.sm{padding:8px 14px;font-size:14px}.danger{background:#fff;color:#c0392b;border:2px solid #f3c2bd}
+.modal{position:fixed;inset:0;background:rgba(90,64,64,.45);display:flex;align-items:flex-start;justify-content:center;overflow:auto;padding:30px 12px;z-index:50}
+.edit{width:100%;max-width:640px}.edit h2{font-family:'Cormorant Garamond',serif;color:#b5656b;font-size:34px;font-style:italic}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}.checks{display:flex;gap:8px;flex-wrap:wrap}.checks label{flex-direction:row;align-items:center;gap:6px;background:#fbf5ef;padding:8px 12px;border-radius:12px}
+.photos{display:flex;gap:10px;flex-wrap:wrap}.photos div{position:relative}.photos img{width:90px;height:115px;object-fit:cover;border-radius:14px}
+.photos button{position:absolute;top:4px;right:4px;border:0;border-radius:50%;width:26px;height:26px;background:#fff;color:#c0392b;cursor:pointer;font-weight:800}
+.file{align-self:flex-start;cursor:pointer}.panel .btn.ghost,.tbl .btn.ghost{border:2px solid #f0d0cc}.tbl td:nth-child(4){white-space:nowrap}.actions{display:flex;gap:10px;margin-top:6px}
+@media(max-width:800px){.two{grid-template-columns:1fr}.tbl th:nth-child(n+3):nth-child(-n+6),.tbl td:nth-child(3),.tbl td:nth-child(5),.tbl td:nth-child(6){display:none}.tbl td:nth-child(4){display:none}.tbl .mob{display:block}.tbl{font-size:14px}.tbl td:last-child{white-space:normal;width:1%}.tbl td:last-child .btn{display:block;width:100%;margin:3px 0;padding:7px 10px;font-size:13px}.panel{padding:20px}}

@@ -1,0 +1,47 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Товар — Stefani</title><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="css/style.css"><script src="js/data.js"></script></head><body>
+<section class="sec" id="p"></section><section class="sec" style="padding-top:0"><h2>Вам может понравиться</h2><div class="grid" id="rel"></div></section>
+<script>
+// Страница товара: product.html?id=N
+let P, size = '';
+function render() {
+  P = findProduct(new URLSearchParams(location.search).get('id')) || PRODUCTS[0];
+  document.title = P.name + ' — Stefani';
+  const sizes = P.sizes && P.sizes.length ? P.sizes : SIZES;
+  document.getElementById('p').innerHTML = `
+  <div class="crumbs"><a href="catalog.html">Каталог</a> / <a href="catalog.html?cat=${encodeURIComponent(P.cat)}">${esc(P.cat)}</a> / ${esc(P.name)}</div>
+  <div class="prod">
+    <div class="gal">
+      <img class="main" id="mi" src="${esc(P.img[0])}" style="object-position:${esc(P.pos || 'center')}" alt="${esc(P.name)}">
+      <div class="thumbs">${P.img.map((im, i) => `<img src="${esc(im)}" class="${i ? '' : 'on'}" onclick="pick(this)" alt="">`).join('')}</div>
+    </div>
+    <div class="info">
+      <span class="tag">${esc(P.cat)}</span><h1>${esc(P.name)}</h1>
+      <div class="price">${fmt(P.price)}*</div><p>${esc(P.desc)}</p>
+      <b>Размер</b>
+      <div class="sizes">${sizes.map(s => `<button onclick="chooseSize(this,'${esc(s)}')">${esc(s)}</button>`).join('')}</div>
+      <button class="btn" onclick="add()">Добавить в корзину</button> <a class="btn ghost" href="cart.html">Перейти в корзину</a>
+      <div class="msg" id="msg"></div>
+      <p class="note">Доставка по Казахстану 1–5 дней · примерка при получении<br>* Цена указана для примера</p>
+    </div>
+  </div>`;
+  document.getElementById('rel').innerHTML = PRODUCTS.filter(x => x.cat == P.cat && x.id != P.id).slice(0, 4).map(card).join('');
+}
+function pick(t) {
+  document.getElementById('mi').src = t.src;
+  document.querySelectorAll('.thumbs img').forEach(i => i.classList.remove('on'));
+  t.classList.add('on');
+}
+function chooseSize(btn, s) {
+  size = s;
+  document.querySelectorAll('.sizes button').forEach(b => b.classList.toggle('on', b == btn));
+}
+function add() {
+  const msg = document.getElementById('msg');
+  if (!size) { msg.textContent = 'Пожалуйста, выберите размер'; return; }
+  const c = getCart(), e = c.find(i => i.id == P.id && i.s == size);
+  e ? e.q++ : c.push({ id: P.id, s: size, q: 1 });
+  setCart(c);
+  msg.textContent = 'Добавлено в корзину ♡ (' + size + ')';
+}
+loadProducts().then(render);
+</script></body></html>
