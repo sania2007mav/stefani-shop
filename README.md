@@ -4,8 +4,12 @@
 
 ## Онлайн
 
-- Выбор дизайна: страница репозитория на GitHub Pages (после публикации)
-- Firebase (мягкий дизайн): https://stefani-shop-7k3m.web.app/
+- GitHub Pages (выбор дизайна): https://sania2007mav.github.io/stefani-shop/
+- Мягкий: https://sania2007mav.github.io/stefani-shop/website/
+- Строгий: https://sania2007mav.github.io/stefani-shop/website-strict/
+- Minimal: https://sania2007mav.github.io/stefani-shop/website-minimal/
+- Firebase: https://stefani-shop-7k3m.web.app/
+- Репозиторий: https://github.com/sania2007mav/stefani-shop
 
 ## Варианты дизайна
 
