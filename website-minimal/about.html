@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>О бренде — Stefani</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/data.js"></script>
+</head>
+<body>
+<section class="sec about">
+  <div>
+    <h1 class="ph1">О бренде</h1>
+    <p>Stefani — женская одежда в Казахстане. Спокойный гардероб: платья, блузы, брюки и верхняя одежда.</p>
+    <p>Каждую модель проверяем сами — ткань, посадку, швы. Доставка по городам, примерка при получении.</p>
+    <a class="btn" href="index.html">В каталог</a>
+  </div>
+  <img src="img/p4.jpg" alt="Stefani">
+</section>
+
+<section class="sec" style="padding-top:0" id="contacts">
+  <h1 class="ph1">Контакты</h1>
+  <div class="boxes">
+    <div class="box"><h3>Доставка</h3>По всем городам Казахстана, 1–5 дней. Бесплатно от 30 000 ₸*. Примерка при получении.</div>
+    <div class="box"><h3>Оплата</h3>Kaspi, перевод или наличными при получении — менеджер уточнит после заказа в WhatsApp.</div>
+    <div class="box"><h3>Возврат</h3>Обмен и возврат в течение 14 дней, если вещь не подошла.</div>
+  </div>
+  <div class="boxes">
+    <div class="box"><h3>WhatsApp</h3>+7 700 000 00 00<br><small>(заглушка)</small><br><br><a class="btn" id="wa" target="_blank" rel="noopener">Написать</a></div>
+    <div class="box"><h3>Instagram</h3>@stefani.kz*</div>
+    <div class="box"><h3>Шоурум</h3>Казахстан, адрес шоурума*<br>Ежедневно 10:00–20:00</div>
+  </div>
+  <p class="note">* Контакты указаны для примера</p>
+</section>
+<script>
+document.querySelector('[data-nav="about"]')?.classList.add('on');
+wa.href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent('Здравствуйте! У меня вопрос по Stefani');
+</script>
+</body>
+</html>

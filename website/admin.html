@@ -1,0 +1,46 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>Админ-панель — Stefani</title><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,600;1,700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/admin.css"></head><body data-admin>
+<header><a class="logo" href="index.html">Stefani</a><b class="adm-title">Админ-панель</b><span id="who"></span></header>
+
+<!-- Форма входа -->
+<section class="sec" id="loginBox">
+  <form class="panel login" id="loginForm">
+    <h1 class="ph1">Вход для администратора</h1>
+    <label>E-mail<input type="email" id="email" required autocomplete="username"></label>
+    <label>Пароль<input type="password" id="pass" required autocomplete="current-password"></label>
+    <button class="btn" type="submit">Войти</button>
+    <div class="err" id="loginErr"></div>
+  </form>
+</section>
+
+<!-- Список товаров -->
+<section class="sec hidden" id="listBox">
+  <div class="bar"><h1 class="ph1">Товары <small id="count"></small></h1>
+    <span><button class="btn" id="addBtn">+ Добавить товар</button> <a class="btn ghost" href="catalog.html" target="_blank">Открыть каталог</a></span></div>
+  <div class="msg" id="listMsg"></div>
+  <table class="tbl"><thead><tr><th>Фото</th><th>Название</th><th>Категория</th><th>Цена</th><th>Размеры</th><th>Новинка</th><th></th></tr></thead><tbody id="rows"></tbody></table>
+</section>
+
+<!-- Форма добавления / редактирования товара -->
+<div class="modal hidden" id="modal"><form class="panel edit" id="editForm">
+  <h2 id="formTitle">Новый товар</h2>
+  <label>Название *<input id="fName" required maxlength="80"></label>
+  <div class="two">
+    <label>Категория<select id="fCat"></select></label>
+    <label>Цена, ₸ *<input id="fPrice" type="number" min="0" step="100" required></label>
+  </div>
+  <div class="lbl">Размеры</div><div class="checks" id="fSizes"></div>
+  <label>Описание<textarea id="fDesc" rows="4" maxlength="600"></textarea></label>
+  <div class="two">
+    <label class="inline"><input type="checkbox" id="fNew"> Показывать в «Новинках»</label>
+    <label>Кадрирование фото<select id="fPos"><option value="center">по центру</option><option value="top">верх</option><option value="bottom">низ</option><option value="left">слева</option><option value="right">справа</option></select></label>
+  </div>
+  <div class="lbl">Фотографии (первая — главная)</div>
+  <div class="photos" id="fPhotos"></div>
+  <label class="btn ghost file">Загрузить фото<input type="file" id="fFile" accept="image/*" multiple hidden></label>
+  <div class="err" id="formErr"></div>
+  <div class="actions"><button class="btn" type="submit" id="saveBtn">Сохранить</button> <button class="btn ghost" type="button" id="cancelBtn">Отмена</button></div>
+</form></div>
+
+<script src="js/data.js"></script>
+<script type="module" src="js/admin.js"></script>
+</body></html>

@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Stefani — женская одежда</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/data.js"></script>
+</head>
+<body>
+<main class="shop">
+  <aside class="sidebar" id="filters">
+    <div class="side-block">
+      <h3>Раздел</h3>
+      <label><input type="radio" name="section" value="all" checked> Все</label>
+      <label><input type="radio" name="section" value="women"> Женщинам</label>
+    </div>
+    <div class="side-block">
+      <h3>Категория</h3>
+      <label><input type="radio" name="cat" value="" checked> Все категории</label>
+      <label><input type="radio" name="cat" value="Верхняя одежда"> Верхняя одежда</label>
+      <label><input type="radio" name="cat" value="Блузы"> Блузы</label>
+      <label><input type="radio" name="cat" value="Брюки"> Брюки</label>
+      <label><input type="radio" name="cat" value="Платья"> Платья</label>
+    </div>
+    <div class="side-block">
+      <h3>Подборки</h3>
+      <label><input type="checkbox" id="fNew"> Новинки</label>
+      <label><input type="checkbox" id="fSale"> Со скидкой</label>
+    </div>
+    <button type="button" class="side-reset" id="reset">Сбросить фильтры</button>
+  </aside>
+
+  <section class="catalog-wrap">
+    <div class="catalog-top">
+      <h1 id="title">Каталог</h1>
+      <span class="count" id="count"></span>
+    </div>
+    <div class="grid" id="g"></div>
+  </section>
+</main>
+
+<script>
+const qs = new URLSearchParams(location.search);
+
+function state() {
+  return {
+    cat: (document.querySelector('input[name="cat"]:checked') || {}).value || '',
+    onlyNew: document.getElementById('fNew').checked,
+    onlySale: document.getElementById('fSale').checked
+  };
+}
+
+function applyUrl() {
+  if (qs.get('cat')) {
+    const el = document.querySelector(`input[name="cat"][value="${CSS.escape(qs.get('cat'))}"]`);
+    if (el) el.checked = true;
+  }
+  if (qs.get('new') === '1') document.getElementById('fNew').checked = true;
+  if (qs.get('sale') === '1') document.getElementById('fSale').checked = true;
+  // highlight nav
+  if (qs.get('new') === '1') document.querySelector('[data-nav="new"]')?.classList.add('on');
+  else if (qs.get('sale') === '1') document.querySelector('[data-nav="sale"]')?.classList.add('on');
+  else document.querySelector('[data-nav="women"]')?.classList.add('on');
+}
+
+function titleFor(s) {
+  if (s.onlyNew && s.onlySale) return 'Новинки со скидкой';
+  if (s.onlyNew) return 'Новинки';
+  if (s.onlySale) return 'Sale';
+  if (s.cat) return s.cat;
+  return 'Каталог';
+}
+
+function draw() {
+  const s = state();
+  let list = PRODUCTS.filter(p => !s.cat || p.cat === s.cat);
+  if (s.onlyNew) list = list.filter(p => p.isNew);
+  if (s.onlySale) list = list.filter(onSale);
+  document.getElementById('title').textContent = titleFor(s);
+  document.getElementById('count').textContent = list.length + ' позиций';
+  document.getElementById('g').innerHTML = list.length
+    ? list.map(card).join('')
+    : '<div class="empty-cat">Нет товаров по выбранным фильтрам</div>';
+
+  const url = new URL(location.href);
+  url.search = '';
+  if (s.cat) url.searchParams.set('cat', s.cat);
+  if (s.onlyNew) url.searchParams.set('new', '1');
+  if (s.onlySale) url.searchParams.set('sale', '1');
+  history.replaceState(null, '', url.pathname.split('/').pop() + (url.search || ''));
+}
+
+document.getElementById('filters').addEventListener('change', draw);
+document.getElementById('reset').addEventListener('click', () => {
+  document.querySelector('input[name="section"][value="all"]').checked = true;
+  document.querySelector('input[name="cat"][value=""]').checked = true;
+  document.getElementById('fNew').checked = false;
+  document.getElementById('fSale').checked = false;
+  draw();
+});
+
+applyUrl();
+loadProducts().then(draw);
+</script>
+</body>
+</html>

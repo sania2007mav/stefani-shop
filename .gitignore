@@ -1,0 +1,17 @@
+.DS_Store
+Thumbs.db
+*.tmp
+_pdf_extract.txt
+_site_index.html
+_fetch_site.py
+_mirror_site.py
+_sync_admin.py
+__pycache__/
+.firebase/
+*.log
+# образец чужой ВКР — не публикуем
+2025_433_abdelkarimama.pdf
+# черновики / дубликаты
+Сообщение_Стефани.txt
+Диплом_Мельничук_Stefani_интернет-магазин.docx
+_build_diploma.py

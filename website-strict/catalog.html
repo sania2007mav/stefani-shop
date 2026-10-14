@@ -1,0 +1,19 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Каталог — Stefani</title><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="css/style.css"><script src="js/data.js"></script></head><body>
+<section class="sec"><h1 class="ph1">Каталог</h1><div class="filters" id="f"></div><div class="grid" id="g"></div><p class="note">* Цены указаны для примера</p></section>
+<script>
+// Каталог с фильтром по категории (?cat=...)
+let cur = new URLSearchParams(location.search).get('cat') || 'Все';
+function draw() {
+  document.getElementById('f').innerHTML = ['Все', ...CATS].map(c =>
+    `<button class="${c == cur ? 'on' : ''}" onclick="setCat('${c}')">${c}</button>`).join('');
+  const list = PRODUCTS.filter(p => cur == 'Все' || p.cat == cur);
+  document.getElementById('g').innerHTML = list.length ? list.map(card).join('') : '<p>В этой категории пока нет товаров.</p>';
+}
+function setCat(c) {
+  cur = c;
+  history.replaceState(0, '', c == 'Все' ? 'catalog.html' : '?cat=' + encodeURIComponent(c));
+  draw();
+}
+document.getElementById('g').innerHTML = '<p>Загрузка каталога…</p>';
+loadProducts().then(draw);
+</script></body></html>

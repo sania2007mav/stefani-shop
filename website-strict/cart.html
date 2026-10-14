@@ -1,0 +1,40 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Корзина — Stefani</title><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="css/style.css"><script src="js/data.js"></script></head><body>
+<section class="sec"><h1 class="ph1">Корзина</h1><div id="c"></div></section>
+<script>
+// Корзина: позиции {id, s (размер), q (количество)} хранятся в localStorage
+function draw() {
+  // убираем позиции, товары которых были удалены из каталога
+  const c = getCart().filter(i => findProduct(i.id));
+  const el = document.getElementById('c');
+  if (!c.length) {
+    el.innerHTML = '<div class="empty"><p>Ваша корзина пока пуста ♡</p><a class="btn" href="catalog.html">Перейти в каталог</a></div>';
+    return;
+  }
+  let tot = 0;
+  const rows = c.map((i, k) => {
+    const p = findProduct(i.id);
+    tot += p.price * i.q;
+    return `<div class="row"><img src="${esc(p.img[0])}" style="object-position:${esc(p.pos || 'center')}" alt="">
+      <div><a href="product.html?id=${p.id}"><h3>${esc(p.name)}</h3></a><small>Размер: ${esc(i.s)}</small>
+      <div class="qty"><button onclick="q(${k},-1)">−</button><b>${i.q}</b><button onclick="q(${k},1)">+</button></div>
+      <button class="del" onclick="q(${k},-999)">Удалить</button></div>
+      <div class="price">${fmt(p.price * i.q)}</div></div>`;
+  }).join('');
+  // текст заказа для WhatsApp
+  const txt = 'Здравствуйте! Хочу оформить заказ в Stefani:\n' + c.map(i => {
+    const p = findProduct(i.id);
+    return `• ${p.name}, размер ${i.s} × ${i.q} = ${fmt(p.price * i.q)}`;
+  }).join('\n') + `\nИтого: ${fmt(tot)}`;
+  el.innerHTML = `<div class="cart"><div>${rows}</div><div class="sum"><b>Итого</b><div class="tot">${fmt(tot)}*</div>
+    <a class="btn" target="_blank" rel="noopener" href="https://wa.me/${WA}?text=${encodeURIComponent(txt)}">Оформить заказ в WhatsApp</a>
+    <small>Заказ отправится сообщением в WhatsApp, менеджер уточнит доставку и оплату. Онлайн-оплаты на сайте нет.<br><b>Номер WhatsApp — временная заглушка (+7 700 000 00 00).</b><br>* Цены указаны для примера</small></div></div>`;
+}
+function q(k, d) {
+  const c = getCart().filter(i => findProduct(i.id));
+  c[k].q += d;
+  if (c[k].q < 1) c.splice(k, 1);
+  setCart(c);
+  draw();
+}
+loadProducts().then(draw);
+</script></body></html>
